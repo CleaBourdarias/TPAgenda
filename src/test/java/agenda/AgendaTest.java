@@ -3,7 +3,9 @@ package agenda;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -52,6 +54,25 @@ public class AgendaTest {
         assertEquals(4, agenda.eventsInDay(nov_1_2020).size(), "Il y a 4 événements ce jour là");
         assertTrue(agenda.eventsInDay(nov_1_2020).contains(neverEnding));
     }
+    
+    
+    @Test
+    public void testFindByTitle() {
+        List<Event> listeTitle = new ArrayList<>();
+        listeTitle.add(simple);
+
+        assertEquals(listeTitle,agenda.findByTitle("Simple"));
+    }
+    
+    
+    @Test
+    public void testIsFreeFor() {
+        
+        assertFalse(agenda.isFreeFor(simple));
+        Event test = new Event("test", LocalDateTime.of(2000, 11, 1, 22, 30), Duration.ofMinutes(120));
+        assertTrue(agenda.isFreeFor(test));
+    }
+
 
 
 }
